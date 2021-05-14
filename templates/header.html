@@ -1,0 +1,86 @@
+{% load notifications_tags %}
+{% notifications_unread as unread_count %}
+
+<!-- 定义导航栏 -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container">
+
+      <!-- 导航栏商标 -->
+      <a class="navbar-brand" href="{% url 'article:article_list' %}">我的博客</a>
+
+      <!-- 导航入口 -->
+      <ul class="nav nav-pills">
+
+
+
+        <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'article:article_list' %}">文章</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'article:article_publish' %}">写文章</a>
+        </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item dropdown ">
+              <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#">
+                  <!-- 新增代码，小红点 -->
+                  {% if unread_count %}
+                  <svg viewBox="0 0 8 8"
+                       width="8px"
+                       height="8px">
+                      <circle cx="4"
+                              cy="4"
+                              r="4"
+                              fill="#ff6b6b"
+                      ></circle>
+                  </svg>
+                  {% endif %}
+                  {{user.username}}
+              </a>
+              <div class="dropdown-menu">
+                  <!-- 新消息通知 -->
+                   <a class="  dropdown-item "  href="{% url "notice:list" %}">消息
+
+                  {% if unread_count %}
+                      <span class="badge badge-danger">{{ unread_count }}</span>
+                  {% endif %}
+                  </a>
+                  <a class="dropdown-item" href='{% url "user:edit" user.id %}'>个人信息</a>
+                  <a class="dropdown-item " href='{% url "user:logout" %}'>退出登录</a>
+                  <a class="dropdown-item" href="#" onclick="user_delete()">删除用户</a>
+              </div>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'user:login' %}">登录</a>
+        </li>
+    <!-- if 语句在这里结束 -->
+    {% endif %}
+      </ul>
+
+    </div>
+    {% if user.is_authenticated %}
+<form
+    style="display:none;"
+    id="user_delete"
+    action="{% url 'user:delete' user.id %}"
+    method="POST"
+>
+{% csrf_token %}
+    <button type="submit">发送</button>
+</form>
+    <script>
+        function user_delete() {
+            // 调用layer弹窗组件
+            layer.open({
+                title: "确认删除",
+                content: "确认删除用户资料吗？",
+                yes: function(index, layero) {
+                    $('form#user_delete button').click();
+                    layer.close(index);
+                },
+            })
+        }
+    </script>
+{% endif %}
+  </nav>

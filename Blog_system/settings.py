@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'e_q^m&9q83oz81_dn-c8$gptk9yfqdw(be5()7^dk!(9iktqfh'
+SECRET_KEY = '...'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -174,12 +174,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # SMTP服务器，改为你的邮箱的smtp!
 EMAIL_HOST = 'smtp.qq.com'
 # 改为你自己的邮箱名！
-EMAIL_HOST_USER = '751359244@qq.com'
+EMAIL_HOST_USER = '...@qq.com'
 # 你的邮箱密码
-EMAIL_HOST_PASSWORD = 'rnsdkvvjgcvwbedi'
+EMAIL_HOST_PASSWORD = ''
 # 发送邮件的端口
 EMAIL_PORT = 25
 # 是否使用 TLS
 EMAIL_USE_TLS = True
 # 默认的发件人
-DEFAULT_FROM_EMAIL = '9527的博客 <751359244@qq.com>'
+DEFAULT_FROM_EMAIL = '9527的博客 <...@qq.com>'
